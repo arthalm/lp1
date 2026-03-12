@@ -21,7 +21,7 @@ struct Aluno
 
     void exibirAluno()
     {
-        cout << "==========@==========" << '\n';
+        cout << "==========@==========\n";
         cout << "ID: " << id << '\n';
         cout << "Nome: " << nome << '\n';
         cout << "Idade: " << idade << '\n';
@@ -30,7 +30,7 @@ struct Aluno
         {
             cout << notas[i] << " ";
         }
-        cout << endl;
+        cout << "\n---------------------\n" << endl;
     }
 
     double calcularMedia()
@@ -112,7 +112,7 @@ public:
         if (n_existe_aluno)
         {
             cout << "Erro! O ID inserido não está vinculado a nenhum aluno.\n";
-            cout << "ID inserido: " << id << endl;
+            cout << "ID inserido: " << id << "\n" << endl;
         }
     }
 

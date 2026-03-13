@@ -143,4 +143,5 @@ int main()
     i.imprimir(p, 'R');
     i.imprimir(a, 'P');
     i.imprimir(b, 'J');
+    i.imprimir(c);
 }

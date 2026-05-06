@@ -40,8 +40,9 @@ public:
         }
     }
 
-    void exibirInformacoes()
+    void exibirInformacoes() override
     {
+        Produto::exibirInformacoes();
         cout << "Tipo de produto: " << tipoUso << endl;
     };
 };
@@ -56,8 +57,9 @@ public:
         validade = vd;
     }
 
-    void exibirInformacoes()
+    void exibirInformacoes() override
     {
+        Produto::exibirInformacoes();
         cout << "Validade do produto (DD/MM/AAAA): " << validade << endl;
     }
 };
@@ -78,18 +80,41 @@ public:
         garantia = gr;
     }
 
-    void exibirInformacoes()
+    void exibirInformacoes() override
     {
+        Produto::exibirInformacoes();
         cout << "Voltagem (V): " << voltagem << "\nGarantia (anos): " << garantia << endl;
     }
 };
 
 int main()
 {
-    ProdutoLimpeza pl;
+    int operacao;
 
-    pl.setNome("Vanish");
-    pl.setPreco(34.99);
-    pl.setTipo("Doméstico");
-    pl.exibirInformacoes();
+    cout << "SUPERMERCADO LYMPIA\nO que deseja realizar?\n1 - Cadastrar novo produto\n0 - Sair\nSua escolha: ";
+    cin >> operacao;
+
+    if (operacao == 1)
+    {
+        while (operacao != 0)
+        {
+            cout << "Qual tipo de produto você deseja cadastrar?\n1 - Produto de limpeza\n2 - Produto alimentício\n3 - Produto eletrônico\n4 - Sair\nSua escolha: ";
+            cin >> operacao;
+            if (operacao == 1)
+            {
+                ProdutoLimpeza* pl = new ProdutoLimpeza();
+                string nm, tipo;
+                double pr;
+                cout << "Digite o nome do produto: ";
+            }
+        }
+    }
+    else if (operacao == 0)
+    {
+        cout << "Saindo..." << endl;
+    }
+    else
+    {
+        throw invalid_argument("Erro! A operação digitada não está disponível. Tente novamente.");
+    }
 }

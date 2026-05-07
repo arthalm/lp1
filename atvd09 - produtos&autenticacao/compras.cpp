@@ -90,8 +90,10 @@ public:
 int main()
 {
     int operacao;
+    int tamanho = 1;
+    Produto *lista_exibicao = new Produto[tamanho];
 
-    cout << "SUPERMERCADO LYMPIA\nO que deseja realizar?\n1 - Cadastrar novo produto\n0 - Sair\nSua escolha: ";
+    cout << "SUPERMERCADO LYMPIA\nO que deseja realizar?\n1 - Cadastrar novo produto\n2 - Exibir lista de produtos cadastrados\n0 - Sair\nSua escolha: ";
     cin >> operacao;
 
     if (operacao == 1)
@@ -102,12 +104,72 @@ int main()
             cin >> operacao;
             if (operacao == 1)
             {
-                ProdutoLimpeza* pl = new ProdutoLimpeza();
+                ProdutoLimpeza *pl = new ProdutoLimpeza();
                 string nm, tipo;
                 double pr;
                 cout << "Digite o nome do produto: ";
+                cin >> nm;
+                pl->setNome(nm);
+                cout << "Digite o preço do produto em R$ (use '.' para simbolizar a vírgula): ";
+                cin >> pr;
+                pl->setPreco(pr);
+                cout << "Digite o tipo do produto (opções disponíveis: Doméstico, Hospitalar, Industrial): ";
+                cin >> tipo;
+                pl->setTipo(tipo);
+                lista_exibicao[tamanho - 1] = pl;
+                tamanho++;
+                cout << "Encerrando cadastro de produto de limpeza...\n";
+            }
+            else if (operacao == 2)
+            {
+                ProdutoAlimenticio *pa = new ProdutoAlimenticio();
+                string nm, val;
+                double pr;
+                cout << "Digite o nome do produto: ";
+                cin >> nm;
+                pa->setNome(nm);
+                cout << "Digite o preço do produto em R$ (use '.' para simbolizar a vírgula): ";
+                cin >> pr;
+                pa->setPreco(pr);
+                cout << "Digite a data de validade do produto (use o formato DD/MM/AAAA com as barras inclusas): ";
+                pa->setValidade(val);
+                tamanho++;
+                cout << "Encerrando cadastro de produto alimentício...\n";
+            }
+            else if (operacao == 3)
+            {
+                ProdutoEletronico *pe = new ProdutoEletronico();
+                int gar, volt;
+                string nm;
+                double pr;
+                cout << "Digite o nome do produto: ";
+                cin >> nm;
+                pe->setNome(nm);
+                cout << "Digite o preço do produto em R$ (use '.' para simbolizar a vírgula): ";
+                cin >> pr;
+                pe->setPreco(pr);
+                cout << "Digite a voltagem do produto em volts: ";
+                cin >> volt;
+                pe->setVoltagem(volt);
+                cout << "Digite a garantia do produto em anos :";
+                cin >> gar;
+                pe->setGarantia(gar);
+                tamanho++;
+                cout << "Encerrando cadastro de produto eletrônico...\n";
+            }
+            else if (operacao == 4)
+            {
+                cout << "Saindo do cadastro de produtos...\n";
+            }
+            else
+            {
+                throw invalid_argument("Erro! A operação digitada não está disponível. Tente novamente.");
             }
         }
+    }
+    else if (operacao == 2)
+    {
+
     }
     else if (operacao == 0)
     {

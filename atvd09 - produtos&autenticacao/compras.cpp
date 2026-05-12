@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <string>
 using namespace std;
 
 class Produto
@@ -91,20 +92,20 @@ public:
 int main()
 {
     int operacao;
+    char ver;
     vector<Produto *> lista_exibicao;
-
     cout << "SUPERMERCADO LYMPIA\nO que deseja realizar?\n1 - Cadastrar produto de limpeza\n2 - Cadastrar produto alimentício\n3 - Cadastrar produto eletrônico\n4 - Exibir lista de produtos cadastrados\n0 - Sair\nSua escolha: ";
     cin >> operacao;
-
     while (operacao != 0)
     {
+        cin.ignore();
         if (operacao == 1)
         {
             ProdutoLimpeza *pl = new ProdutoLimpeza();
             string nm, tipo;
             double pr;
             cout << "Digite o nome do produto: ";
-            cin >> nm;
+            getline(cin, nm);
             pl->setNome(nm);
             cout << "Digite o preço do produto em R$ (use '.' para simbolizar a vírgula): ";
             cin >> pr;
@@ -121,13 +122,13 @@ int main()
             string nm, val;
             double pr;
             cout << "Digite o nome do produto: ";
-            cin >> nm;
+            getline(cin, nm);
+            pa->setNome(nm);
             cout << "Digite o preço do produto em R$ (use '.' para simbolizar a vírgula): ";
             cin >> pr;
+            pa->setPreco(pr);
             cout << "Digite a data de validade do produto (use o formato DD/MM/AAAA com as barras inclusas): ";
             cin >> val;
-            pa->setPreco(pr);
-            pa->setNome(nm);
             pa->setValidade(val);
             lista_exibicao.push_back(pa);
             cout << "Encerrando cadastro de produto alimentício...\n";
@@ -139,7 +140,7 @@ int main()
             string nm;
             double pr;
             cout << "Digite o nome do produto: ";
-            cin >> nm;
+            getline(cin, nm);
             pe->setNome(nm);
             cout << "Digite o preço do produto em R$ (use '.' para simbolizar a vírgula): ";
             cin >> pr;
@@ -147,7 +148,7 @@ int main()
             cout << "Digite a voltagem do produto em volts: ";
             cin >> volt;
             pe->setVoltagem(volt);
-            cout << "Digite a garantia do produto em anos :";
+            cout << "Digite a garantia do produto em anos: ";
             cin >> gar;
             pe->setGarantia(gar);
             lista_exibicao.push_back(pe);
@@ -155,20 +156,30 @@ int main()
         }
         else if (operacao == 4)
         {
-            cout << "Exibindo a lista de produtos cadastrados: \n";
-            for (Produto *p : lista_exibicao)
+            bool op2 = true;
+            while (op2)
             {
-                p->exibirInformacoes();
-                cout << endl;
+                cout << "Exibindo a lista de produtos cadastrados: \n";
+                for (Produto *p : lista_exibicao)
+                {
+                    p->exibirInformacoes();
+                    cout << endl;
+                }
+                cout << "Deseja sair da exibição da lista? (Digite S para SIM e N para NÃO): ";
+                cin >> ver;
+                if (ver == 'S')
+                {
+                    op2 = false;
+                }
+                else if (ver == 'N')
+                {
+                    continue;
+                }
+                else
+                {
+                    throw invalid_argument("Erro! O caractere digitado não está disponível. Tente novamente.");
+                }
             }
-        }
-        else if (operacao == 0)
-        {
-            cout << "Saindo..." << endl;
-        }
-        else
-        {
-            throw invalid_argument("Erro! A operação digitada não está disponível. Tente novamente.");
         }
         cout << "SUPERMERCADO LYMPIA\nO que deseja realizar?\n1 - Cadastrar produto de limpeza\n2 - Cadastrar produto alimentício\n3 - Cadastrar produto eletrônico\n4 - Exibir lista de produtos cadastrados\n0 - Sair\nSua escolha: ";
         cin >> operacao;

@@ -4,7 +4,6 @@ using namespace std;
 
 class Autenticacao
 {
-
 public:
     virtual void coletarDados() = 0;
 

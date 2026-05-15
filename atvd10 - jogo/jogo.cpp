@@ -199,21 +199,21 @@ void acaoPersonagem(Personagem *p, vector<Personagem *> &players, int opcao)
 
     int atk_adv;
     cin >> atk_adv;
-    do
+    while (atk_adv < 1 || atk_adv > adversarios.size())
     {
         cerr << "Erro! o número digitado não corresponde a nenhum dos personagens disponíveis. Tente novamente." << endl;
         cin >> atk_adv;
-    } while (atk_adv < 1 || atk_adv > adversarios.size());
+    }
     Personagem *adversario = adversarios[atk_adv - 1];
 
     cout << "Qual tipo de ataque deseja realizar?\n1 - Ataque Normal\n2 - Ataque Carregado\nSua escolha: ";
     int esc_atk;
     cin >> esc_atk;
-    do
+    while (esc_atk < 1 || esc_atk > 2)
     {
         cerr << "Erro! o número digitado não corresponde a nenhum dos ataques disponíveis. Tente novamente." << endl;
         cin >> esc_atk;
-    } while (esc_atk < 1 || esc_atk > 2);
+    }
 
     double dmg = 0.00;
     if (esc_atk == 1)
@@ -227,7 +227,7 @@ void acaoPersonagem(Personagem *p, vector<Personagem *> &players, int opcao)
     adversario->tomarDano(dmg);
 
     cout << classes[opcao] << " deu " << dmg << " pontos de dano ao " << advers[atk_adv - 1] << "." << endl;
-    cout << "O" << advers[atk_adv - 1] << " se encontra com " << adversario->getCurrentHealth() << " pontos de HP." << endl;
+    cout << "O " << advers[atk_adv - 1] << " se encontra com " << adversario->getCurrentHealth() << " pontos de HP." << endl;
 
     if (!adversario->estaVivo())
     {

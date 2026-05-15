@@ -168,6 +168,16 @@ public:
 void acaoPersonagem(Personagem *p, vector<Personagem *> &players, int opcao)
 {
     vector<string> classes{"Mago", "Guerreiro", "Arqueiro"};
+    vector<string> advers;
+
+    for (int i = 0; i < classes.size(); i++)
+    {
+        if (i != opcao)
+        {
+            advers.push_back(classes[i]);
+        }
+    }
+
     cout << "---- Atacante: " << classes[opcao] << " ----" << endl;
     cout << "HP atual: " << p->getCurrentHealth() << " - Mana atual: " << p->getCurrentMana() << endl;
 
@@ -215,9 +225,58 @@ void acaoPersonagem(Personagem *p, vector<Personagem *> &players, int opcao)
     }
     adversario->tomarDano(dmg);
 
-    cout << classes[opcao] << " deu " << dmg << " pontos de dano ao " << adversario[atk_adv]
+    cout << classes[opcao] << " deu " << dmg << " pontos de dano ao " << advers[atk_adv - 1] << "." << endl;
+    cout << "O" << advers[atk_adv - 1] << " se encontra com " << adversario->getCurrentHealth() << " pontos de HP." << endl;
+
+    if (!adversario->estaVivo())
+    {
+        cout << advers[atk_adv - 1] << " foi derrotado. Parabéns " << classes[opcao] << "!" << endl;
+    }
 }
 
 int main()
 {
+    Mago m;
+    Guerreiro g;
+    Arqueiro a;
+    int turnos = 1;
+    bool jogo_ativo = true;
+    vector<Personagem *> personagens = {&m,
+                                        &g,
+                                        &a};
+
+    do
+    {
+        cout << "---- INÍCIO DO TURNO " << turnos << " ----" << endl;
+
+        for (int i = 0; i < personagens.size(); i++)
+        {
+            if (personagens[i]->estaVivo())
+            {
+                personagens[i]->passagemTurno();
+            }
+        }
+
+        for (int j = 0; j < personagens.size(); j++)
+        {
+            if (personagens[j]->estaVivo())
+            {
+                int quant_vivos = 0;
+                for (int k = 0; k < personagens.size(); k++)
+                {
+                    if (personagens[k]->estaVivo())
+                    {
+                        quant_vivos++;
+                    }
+                }
+                if (quant_vivos <= 1)
+                {
+                    cout << "Parabéns! O " << "placeholder" << " é o campeão do jogo.";
+                    jogo_ativo = false;
+                }
+                acaoPersonagem(personagens[j], personagens, );
+            }
+        }
+        turnos++;
+    } while (jogo_ativo);
 }

@@ -106,7 +106,7 @@ public:
         if (usarMana() == true)
         {
             cout << "O Mago usa Magia Suprema!" << endl;
-            getAttack() * 2;
+            return getAttack() * 2;
         }
         else
         {
@@ -131,7 +131,7 @@ public:
         if (usarMana() == true)
         {
             cout << "O Guerreiro usa Corte Dimensional!" << endl;
-            getAttack() * 2;
+            return getAttack() * 2;
         }
         else
         {
@@ -156,7 +156,7 @@ public:
         if (usarMana() == true)
         {
             cout << "O Arqueiro usa Flecha Perfurante!" << endl;
-            getAttack() * 2;
+            return getAttack() * 2;
         }
         else
         {
@@ -185,16 +185,17 @@ void acaoPersonagem(Personagem *p, vector<Personagem *> &players, int opcao)
     vector<Personagem *> adversarios;
 
     int incrementador = 1;
+    cout << "Opções de quem atacar" << endl;
     for (int i = 0; i < players.size(); i++)
     {
         if (players[i] != p && players[i]->estaVivo())
         {
-            cout << "Opções de quem atacar" << endl;
             cout << incrementador << " - " << classes[i] << " - HP atual: " << players[i]->getCurrentHealth() << " - Mana atual: " << players[i]->getCurrentMana() << endl;
             adversarios.push_back(players[i]);
             incrementador++;
         }
     }
+    cout << "Sua escolha: ";
 
     int atk_adv;
     cin >> atk_adv;
@@ -244,6 +245,7 @@ int main()
     vector<Personagem *> personagens = {&m,
                                         &g,
                                         &a};
+    vector<string> classes{"Mago", "Guerreiro", "Arqueiro"};
 
     do
     {
@@ -271,10 +273,10 @@ int main()
                 }
                 if (quant_vivos <= 1)
                 {
-                    cout << "Parabéns! O " << "placeholder" << " é o campeão do jogo.";
+                    cout << "Parabéns! O " << classes[j] << " é o campeão do jogo.";
                     jogo_ativo = false;
                 }
-                acaoPersonagem(personagens[j], personagens, );
+                acaoPersonagem(personagens[j], personagens, j);
             }
         }
         turnos++;
